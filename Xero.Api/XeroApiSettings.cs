@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Extensions.Configuration;
 
 namespace Xero.Api
@@ -7,10 +8,12 @@ namespace Xero.Api
     {
         public IConfigurationSection ApiSettings { get; set; }
 
-        public XeroApiSettings(string path)
+        public XeroApiSettings(string settingspath)
         {
+           // var realPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, settingspath);
+            var realPath = settingspath;
             var builder = new ConfigurationBuilder()
-                .AddJsonFile(path)
+                .AddJsonFile(realPath)
                 .Build();
 
             ApiSettings = builder.GetSection("XeroApi");
